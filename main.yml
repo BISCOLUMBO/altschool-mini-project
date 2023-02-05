@@ -1,0 +1,19 @@
+---
+- name: Install Apache , set timezone and deploy html
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+
+  tasks:
+  - name: install apache2
+    apt:
+      name: apache2
+      state: present
+      update_cache: yes
+
+  - name: set timezone to Africa/Lagos
+    timezone:
+      name: "Africa/Lagos"
+  
+  - name: Deploy html page
+    shell: echo "Server IP:$(hostname -f)" > /var/www/html/index.html
